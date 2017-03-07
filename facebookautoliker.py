@@ -5,12 +5,16 @@ def autoLike(max_likes):
 	num_likes = 0
 	while (num_likes < max_likes):
 		unliked_button = pyautogui.locateOnScreen('unliked_button.png')
+		print(unliked_button)
 		if (unliked_button == None):
 			pyautogui.press('pgdn')
 		else:
-			_, y = pyautogui.center(unliked_button)
-			pyautogui.click(x=400, y=400)
-			num_likes += 1
+			clickx, clicky = pyautogui.center(unliked_button)
+			if (clickx>200) and (clickx<600):
+				pyautogui.click(x=clickx, y=clicky)
+				num_likes += 1
+	print(unliked_button)
+	print(clickx, clicky)
 	time.sleep(1)
 
 def alt_tab():
