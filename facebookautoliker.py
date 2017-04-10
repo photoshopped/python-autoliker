@@ -23,12 +23,13 @@ def autoLike(max_likes):
 		else:
 			clickx, clicky = pyautogui.center(unliked_button)
 			pyautogui.click(x=clickx, y=clicky)
-			pyautogui.moverel(-50, 0)
+			pyautogui.moveRel(-50, 0)
 			num_likes += 1
 			time.sleep(1)
 
 def alt_tab():
 	pyautogui.click(420, 740)
+	pyautogui.hotkey('ctrl', '1')
 
 alt_tab()
 autoLike(5)
