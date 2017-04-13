@@ -9,7 +9,7 @@ class Application(tk.Frame):
 		super().__init__(master)
 		self.pack()
 
-		self.frame = tk.Frame(master, width=480, height=620)
+		self.frame = tk.Frame(master, width=480, height=560)
 		self.frame.pack()
 
 		self.create_fixed_like_buttons()
@@ -19,22 +19,22 @@ class Application(tk.Frame):
 		self.auto_like_five = tk.Button(self, fg='green')
 		self.auto_like_five["text"] = "Press This\nTo Auto Like Five Times"
 		self.auto_like_five["command"] = lambda: (self.autoLike(5))
-		self.auto_like_five.pack(side="top")
+		self.auto_like_five.pack(side="left")
 		self.auto_like_ten = tk.Button(self, fg='yellow')
 		self.auto_like_ten["text"] = "Press This\nTo Auto Like Ten Times"
 		self.auto_like_ten["command"] = lambda: (self.autoLike(10))
-		self.auto_like_ten.pack(side="top")
+		self.auto_like_ten.pack(side="left")
 		self.auto_like_fifteen = tk.Button(self, fg='red')
 		self.auto_like_fifteen["text"] = "Press This\nTo Auto Like Fifteen Times"
 		self.auto_like_fifteen["command"] = lambda: (self.autoLike(15))
-		self.auto_like_fifteen.pack(side="top")
+		self.auto_like_fifteen.pack(side="left")
 
 	def create_custom_like_button(self):
 		pass
 
 
 	def autoLike(self, max_likes):
-		self.alt_tab()
+		#self.alt_tab()
 		num_likes = 0
 		unliked_button = None
 		clickx = clicky = 0
@@ -45,6 +45,7 @@ class Application(tk.Frame):
 
 			sys.stdout.write('Time to print: %s\n' % elapsed_time)
 			sys.stdout.write(str(unliked_button).join(' \n'))
+			sys.stdout.write('%d likes out of %d\n\n' % (num_likes, max_likes))
 			sys.stdout.flush()
 
 			time.sleep(1)
