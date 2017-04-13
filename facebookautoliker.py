@@ -43,9 +43,11 @@ class Application(tk.Frame):
 
 		self.custom_number_of_likes_label = tk.Label(self.custom_button_frame, text="Number of Likes: ")
 		self.custom_number_of_likes_entry = tk.Entry(self.custom_button_frame)
+		self.custom_number_of_likes_entry.insert(0, "1")#not sure what this 0 does will need to look at documnetation later
 		self.custom_number_of_likes_entry.pack(side="left")
 		self.custom_number_of_likes_label.pack(side="left")
 		self.custom_number_of_likes_submit = tk.Button(self.custom_button_frame, text="Go!")
+		self.custom_number_of_likes_submit["command"] = lambda: (self.autoLike(int(self.custom_number_of_likes_entry.get())))
 		self.custom_number_of_likes_submit.pack(side="left")
 
 
