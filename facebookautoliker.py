@@ -9,28 +9,44 @@ class Application(tk.Frame):
 		super().__init__(master)
 		self.pack()
 
-		self.frame = tk.Frame(master, width=480, height=560)
-		self.frame.pack()
-
 		self.create_fixed_like_buttons()
+		self.boundary_frame = tk.Frame(self, width=480, height=320)
+		self.boundary_frame.pack()
 		self.create_custom_like_button()
 
 	def create_fixed_like_buttons(self):
-		self.auto_like_five = tk.Button(self, fg='green')
+		self.fixed_button_frame = tk.Frame(self, width=480, height=240)
+		self.fixed_button_frame.pack(side="top")
+
+		self.fixed_button_label = tk.Label(self.fixed_button_frame, text="Quick Access Buttons")
+		self.fixed_button_label.pack(side="top")
+
+		self.auto_like_five = tk.Button(self.fixed_button_frame, fg='green')
 		self.auto_like_five["text"] = "Press This\nTo Auto Like Five Times"
 		self.auto_like_five["command"] = lambda: (self.autoLike(5))
 		self.auto_like_five.pack(side="left")
-		self.auto_like_ten = tk.Button(self, fg='yellow')
+		self.auto_like_ten = tk.Button(self.fixed_button_frame, fg='yellow')
 		self.auto_like_ten["text"] = "Press This\nTo Auto Like Ten Times"
 		self.auto_like_ten["command"] = lambda: (self.autoLike(10))
 		self.auto_like_ten.pack(side="left")
-		self.auto_like_fifteen = tk.Button(self, fg='red')
+		self.auto_like_fifteen = tk.Button(self.fixed_button_frame, fg='red')
 		self.auto_like_fifteen["text"] = "Press This\nTo Auto Like Fifteen Times"
 		self.auto_like_fifteen["command"] = lambda: (self.autoLike(15))
 		self.auto_like_fifteen.pack(side="left")
 
 	def create_custom_like_button(self):
-		pass
+		self.custom_button_frame = tk.Frame(self, width=480, height=440)
+		self.custom_button_frame.pack(side="bottom")
+
+		self.custom_button_label = tk.Label(self.custom_button_frame, text="Enter a number of likes 1-100")#next feature: likes or loves
+		self.custom_button_label.pack(side="top")
+
+		self.custom_number_of_likes_label = tk.Label(self.custom_button_frame, text="Number of Likes: ")
+		self.custom_number_of_likes_entry = tk.Entry(self.custom_button_frame)
+		self.custom_number_of_likes_entry.pack(side="left")
+		self.custom_number_of_likes_label.pack(side="left")
+		self.custom_number_of_likes_submit = tk.Button(self.custom_button_frame, text="Go!")
+		self.custom_number_of_likes_submit.pack(side="left")
 
 
 	def autoLike(self, max_likes):
