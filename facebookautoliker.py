@@ -58,32 +58,51 @@ class Application(tk.Frame):
 		self.location_found_label = tk.Label(self.status_bar_frame, text="Placeholder")
 		self.location_found_label.pack()
 
-		self.progress_label = tk.Label(self.status_bar_frame, text="X/X Likes")
-		self.progress_label.pack(side="left")
+		self.percent_label_var = tk.IntVar()
+		self.percent_label_var.set(0)
+		self.percent_label = tk.Label(self.status_bar_frame, text=("{}%".format(self.percent_label_var.get())))
+		self.percent_label.pack(side="left")
 
 		self.canvas = tk.Canvas(self.status_bar_frame, width=450, height=30)
 		self.canvas.pack(side="left")
 
-		self.canvas.create_rectangle(0, 0, 450, 30, fill="gray")
+		self.red_rectangle = self.canvas.create_rectangle(40, 0, 440, 30, fill="gray")
+		self.green_rectangle = self.canvas.create_rectangle(40, 0, 440, 30, fill="gray")
 		
+		self.num_likes_var = tk.IntVar()
+		self.max_likes_var = tk.IntVar()
+		self.num_likes_var.set(0)
+		self.max_likes_var.set(0)
+
+		self.progress_label = tk.Label(self.status_bar_frame, text="{}/{} Likes".format(self.num_likes_var.get(), self.max_likes_var.get()))
+		self.progress_label.pack(side="right")
 
 	def start_status_bar(self):
-		pass
+		self.canvas.itemconfig(self.red_rectangle, fill="red")
+		self.canvas.itemconfig(self.green_rectangle, fill="green")
+		self.canvas.coords(self.green_rectangle, 40, 0, 0, 30)
 
 	def end_status_bar(self):
-		pass
+		self.canvas.coords(self.red_rectangle(40, 0, 0, 30))
+		self.canvas.coords(self.green_rectangle(40, 0, 440, 30))
 
 	def clean_status_bar(self):
 		pass
 
-	def update_status_bar(self):
-		pass
+	def update_status_bar(self, num_likes, max_likes):
+		self.percent_label_var.set(int(num_likes * 100 / max_likes))
+		self.num_likes_var.set(num_likes)#this can just be ++ as well but I'm lazy right now lol
+		self.max_likes_var.set(max_likes)#can optimize here
+		x = int(num_likes / max_likes * 400)
+		self.canvas.coords(self.green_rectangle, 40, 0, x, 30)
+		self.canvas.coords(self.red_rectangle, 40, 0, 400 - x, 30)
 
 	def autoLike(self, max_likes):
 		#self.alt_tab()
 		num_likes = 0
 		unliked_button = None
 		clickx = clicky = 0
+		self.start_status_bar()
 		while (num_likes < max_likes):
 			start_time = time.time()
 			unliked_button = pyautogui.locateOnScreen('unliked_button.png')
@@ -104,7 +123,9 @@ class Application(tk.Frame):
 				pyautogui.click(x=clickx, y=clicky)
 				pyautogui.moveRel(-50, 0)
 				num_likes += 1
+				self.update_status_bar(num_likes, max_likes)
 				time.sleep(1)
+		self.end_status_bar()
 
 	def alt_tab(self):
 		pyautogui.click(420, 740)
