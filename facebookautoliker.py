@@ -10,8 +10,9 @@ class Application(tk.Frame):
 		self.pack()
 
 		self.create_fixed_like_buttons()
-		self.boundary_frame = tk.Frame(self, width=480, height=320)
+		self.boundary_frame = tk.Frame(self, width=480, height=270)
 		self.boundary_frame.pack()
+		self.create_status_bar()
 		self.create_custom_like_button()
 
 	def create_fixed_like_buttons(self):
@@ -25,7 +26,7 @@ class Application(tk.Frame):
 		self.auto_like_five["text"] = "Press This\nTo Auto Like Five Times"
 		self.auto_like_five["command"] = lambda: (self.autoLike(5))
 		self.auto_like_five.pack(side="left")
-		self.auto_like_ten = tk.Button(self.fixed_button_frame, fg='yellow')
+		self.auto_like_ten = tk.Button(self.fixed_button_frame, fg='orange')
 		self.auto_like_ten["text"] = "Press This\nTo Auto Like Ten Times"
 		self.auto_like_ten["command"] = lambda: (self.autoLike(10))
 		self.auto_like_ten.pack(side="left")
@@ -50,6 +51,33 @@ class Application(tk.Frame):
 		self.custom_number_of_likes_submit["command"] = lambda: (self.autoLike(int(self.custom_number_of_likes_entry.get())))
 		self.custom_number_of_likes_submit.pack(side="left")
 
+	def create_status_bar(self):
+		self.status_bar_frame = tk.Frame(self, width=480, height=50)
+		self.status_bar_frame.pack()
+
+		self.location_found_label = tk.Label(self.status_bar_frame, text="Placeholder")
+		self.location_found_label.pack()
+
+		self.progress_label = tk.Label(self.status_bar_frame, text="X/X Likes")
+		self.progress_label.pack(side="left")
+
+		self.canvas = tk.Canvas(self.status_bar_frame, width=450, height=30)
+		self.canvas.pack(side="left")
+
+		self.canvas.create_rectangle(0, 0, 450, 30, fill="gray")
+		
+
+	def start_status_bar(self):
+		pass
+
+	def end_status_bar(self):
+		pass
+
+	def clean_status_bar(self):
+		pass
+
+	def update_status_bar(self):
+		pass
 
 	def autoLike(self, max_likes):
 		#self.alt_tab()
